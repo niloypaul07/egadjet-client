@@ -402,8 +402,8 @@ export default function HomePage() {
             <Link href="/explore" className="btn-accent">
               Browse Gadgets
             </Link>
-            <Link href="/register" className="btn-secondary !border-white/30 !text-white hover:!bg-white/10">
-              Create Account
+            <Link href="/assistant" className="btn-secondary !border-white !bg-white !text-primary hover:!bg-white/90">
+              Ask AI Assistant
             </Link>
           </div>
         </div>
