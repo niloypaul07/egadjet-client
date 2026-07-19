@@ -40,7 +40,7 @@ export default function CartPage() {
             />
           </svg>
           <h2 className="text-xl font-semibold text-slate mb-2">Your cart is empty</h2>
-          <p className="text-slate-muted mb-6">Looks like you haven't added anything to your cart yet.</p>
+          <p className="text-slate-muted mb-6">Looks like you haven&apos;t added anything to your cart yet.</p>
           <Link href="/explore" className="btn-primary">
             Explore Products
           </Link>
