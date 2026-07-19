@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/providers/AuthProvider';
 
-export default function LoginPage() {
+function LoginForm() {
   const { login, googleLogin } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -130,5 +130,17 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[80vh] items-center justify-center">
+        <p className="text-slate-muted">Loading...</p>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
