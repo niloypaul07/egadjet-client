@@ -43,6 +43,12 @@ export default function CheckoutPage() {
           <Link href={`/login?redirect=/checkout`} className="btn-primary w-full block text-center">
             Sign In to Continue
           </Link>
+          <p className="mt-4 text-sm text-slate-muted">
+            Don&apos;t have an account?{' '}
+            <Link href={`/register?redirect=/checkout`} className="font-semibold text-primary hover:underline">
+              Create Account
+            </Link>
+          </p>
         </div>
       </div>
     );

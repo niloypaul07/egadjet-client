@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/providers/AuthProvider';
 
 export default function RegisterPage() {
   const { register, googleLogin } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
+  
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,7 +33,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await register({ name: form.name, email: form.email, password: form.password });
-      router.push('/login');
+      router.push('/login' + (redirect !== '/' ? `?redirect=${redirect}` : ''));
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
@@ -43,7 +46,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await googleLogin(response.credential);
-      router.push('/explore');
+      router.push(redirect);
     } catch {
       setError('Google registration failed. Please try again.');
     } finally {

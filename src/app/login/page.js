@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/providers/AuthProvider';
 
 export default function LoginPage() {
   const { login, googleLogin } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
+  
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(form);
-      router.push('/');
+      router.push(redirect);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {
@@ -36,7 +39,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await googleLogin(response.credential);
-      router.push('/');
+      router.push(redirect);
     } catch {
       setError('Google login failed. Please try again.');
     } finally {
